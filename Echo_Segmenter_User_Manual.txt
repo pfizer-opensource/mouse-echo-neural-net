@@ -1,0 +1,78 @@
+Echo Segmenter User Manual
+Written by: Mary Kate Montgomery
+Pfizer, Inc
+March 2021
+For questions regarding deployment, contact: Mary.Montgomery@pfizer.com. For questions regarding the segmentation tool itself, 
+contact Chong.Duan@pfizer.com.
+
+The Echo Segmenter is a python-based deep learning tool that deploys a U-Net to automatically segment the murine left ventricle 
+in long-axis B-mode and M-mode echocardiography images based on prior segmentations.
+
+--- Version History ---
+8/24/20 – B-Mode version
+3/8/21 - Full version with M-mode included
+
+--- Preparing your data ---
+The Echo Segmenter works on DICOM images (.dcm) which must be exported from either the Vevo3100, the Vevo2100, or the VevoLab 
+Software as described below. (Note: the following screenshots were taken in the VevoLab Software. The scanner software may be 
+slightly different.) 
+1.	Under “Options”, set dicom naming structure. It is recommended to use a structure that puts the subject number at the beginning.
+2.	Navigate to the study/series from which you want to export data
+3.	Select scans to export by holding ‘Ctrl’ and clicking on the scans of interest
+4.	Click the “Export” button at the top of the screen
+5.	Select the folder in which to put the data. It is recommended to create a new folder to house the DICOMs for each run of 
+        the Echo Segmenter, as the tool will operate on the entire contents of the folder.
+6.	Change the settings on the right panel. Select “DICOM” from the list of export types, and then choose “Implicit VR Little 
+        Endian” from the list of File Types. The software should auto-populate the “Save As” name with the format you set up in step 1. 
+	Make sure the box labeled "Export regions" is checked.
+7.	Click “OK” at the top of the screen
+
+Once the DICOMs have finished exporting, the Echo Segmenter can be run on the folder holding the DICOMs. 
+
+
+--- Installing the Tool ---
+For help with installation, contact Mary.Montgomery@pfizer.com. The process is summarized briefly below:
+1.	Install Anaconda. This can be done for all users on a computer if the installer has admin privileges. 
+2.	For all users: Create environment for tool to use
+    a.	Locate environment.yml file
+    b.	Ensure file is in utf-8 encoding
+    c.	Create environment with conda env create -f environment.yml
+    d.	Activate with conda activate tf-latest
+    e.	Upgrade or install any packages that were not able to be resolved during environment creation
+3.	Copy files to accessible location (recommended: data (D:) drive):
+    a.	Echo_Segmenter_UI.py
+    b.	echoanalysis_main.py
+    c.	util.py
+    d.	util_nn.py
+    e.	weights_ECHO_clean.h5
+4.	Ensure working directory in Echo_Segmenter_UI.py is directing to proper local file location from step 3.
+
+--- Using the Tool ---
+To run the tool simply double click on Echo_Segmenter_UI.py. A shortcut can also be created and copied to the desktop for convenience. 
+After double clicking, a black console window will open and shortly afterwards, the tool’s UI window will open.
+ 
+Hit the “Select” button to open a file browser, then navigate to the directory in which the DICOM images to be analyzed are located. 
+Hit “Select Folder” to tell the tool to analyze these images. 
+
+Leave the “Save QC Results” box checked to save snapshot images of each scan’s segmentation results in the output directory. Uncheck the 
+box to save only the Cardac Metrics Excel workbook, with the segmentation results for each scan.
+Once all selections have been made, hit “Run” to start the program. The black console window will report its progress as the program 
+runs, and a pop-up window will alert the user when the program has completed.
+
+When run on a folder containing both m-mode and b-mode data, the tool will separate the files into 2 subfolders, called "M-Mode" and 
+"B-Mode", and then segment the files in each of these folders using the appropriate model. When the tool is run on a directory containing
+only m-mode or only b-mode files, it will run the appropriate model on that directory and will not move the files to a subfolder.
+ 
+ 
+
+--- Saved Outputs ---
+The results are saved in a directory called output_dir, located in the folder in which the Echo Segmenter is stored. The directory 
+contains the following files:
+1.	Output Excel workbook
+    The .csv file, named output.csv, contains the systolic area, diastolic area, systolic volume, diastolic volume, and 
+    Ejection Fraction calculations for b-mode scans, and systolic anterior wall thickness, diastolic anterior wall thickness, systolic 
+    posterior wall thickness, diastolic posterior wall thickness, systolic interior diameter, diastolic interior diameter, fractional 
+    shortening, LV Mass, and corrected LV Mass for m-mode scans.
+2.	Output Images pdf
+    The .pdf file contains representative segmentations overlaid on the images for QC purposes. All scans segmented in the folder are 
+    included in the pdf.
