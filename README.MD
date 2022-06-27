@@ -7,7 +7,7 @@ Mouse Echo Neural Net (MENN) is an end-to-end deep learning pipeline for automat
 # Installation
 First, clone this repository and enter the directory:
 
-    git clone https://github.com/PfizerRD/mouse-echo-neural-net.git
+    git clone https://github.com/pfizer-opensource/mouse-echo-neural-net.git
     cd mouse-echo-neural-net
 
 This project is implemented with Python 3, and need several packages:
@@ -63,4 +63,4 @@ To operate the program from a user interface, run the Echo_Segmenter_UI_Full.py 
 For more detailed information regarding installation, data preparation, and operation of the User Interface see Echo_Segmenter_User_Manual.txt.
 
 # Contribution
-Please reach out to chong.duan@pfizer.com and/or Mary.Montgomery@pfizer.com if you are interested in collaboration and contribution to this project.
+Please reach out to chong.duan@pfizer.com, Mary.Montgomery@pfizer.com or dineshh@pfizer.com if you are interested in collaboration and contribution to this project.
