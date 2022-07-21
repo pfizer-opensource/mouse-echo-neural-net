@@ -74,8 +74,6 @@ chk1.grid(column=3,row=3)
 def runButtonClicked():
     # This runs the main program
     print('Running analysis...')
-    #os.chdir("D:/Echo_Segmenter_Full/")
-    os.chdir('X:/Mary Kate/ECHO/Echo_Analysis/Echo_Segmenter_Test/')
     from preprocessing_modes import sort_modes, write_command
     
     # Compose command string to feed into os system
