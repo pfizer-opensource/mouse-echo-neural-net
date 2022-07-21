@@ -24,6 +24,7 @@ An easy way to replicate the environment is to use conda:
 
     conda env create -f environment.yml
     conda activate tf-latest
+    pip install PyQt5 --upgrade
 
 Note that tf-latest is the name of the environment. It can be changed directly in the enviroment.yml.
 
